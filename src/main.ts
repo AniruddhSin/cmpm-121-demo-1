@@ -25,7 +25,7 @@ button.addEventListener("click", () => {
 });
 
 // Add "automatic" clicking
-setInterval(()=>{
-    numAnts+=1;
-    buttonClickCounter.textContent = `${numAnts} Ants`;
-},1000);
+setInterval(() => {
+  numAnts += 1;
+  buttonClickCounter.textContent = `${numAnts} Ants`;
+}, 1000);
