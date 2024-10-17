@@ -1,5 +1,9 @@
 import "./style.css";
 
+// Globals
+let numAnts: number = 0;
+let timeSinceFrame: number = performance.now();
+
 const app: HTMLDivElement = document.querySelector("#app")!;
 
 const gameName = "Ant Mountain";
@@ -15,7 +19,6 @@ button.innerHTML = "Ant 🐜";
 app.append(button);
 
 // Track button clicks
-let numAnts: number = 0;
 const buttonClickCounter = document.createElement("div");
 buttonClickCounter.textContent = `${numAnts} Ants`;
 app.append(buttonClickCounter);
@@ -24,8 +27,14 @@ button.addEventListener("click", () => {
   buttonClickCounter.textContent = `${numAnts} Ants`;
 });
 
-// Add "automatic" clicking
-setInterval(() => {
-  numAnts += 1;
-  buttonClickCounter.textContent = `${numAnts} Ants`;
-}, 1000);
+
+requestAnimationFrame(continuousAntGain);
+function continuousAntGain(timestamp: number){
+    const deltaTime = timestamp - timeSinceFrame;
+    if (deltaTime >= 1000){
+        numAnts += 10;
+        buttonClickCounter.textContent = `${numAnts} Ants`;
+        timeSinceFrame = timestamp
+    }
+    requestAnimationFrame(continuousAntGain)
+}
