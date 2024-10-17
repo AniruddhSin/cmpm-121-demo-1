@@ -19,7 +19,7 @@ let numClicks: number = 0;
 const buttonClickCounter = document.createElement("div");
 buttonClickCounter.textContent = `${numClicks} Ants`;
 app.append(buttonClickCounter);
-button.addEventListener('click', ()=>{
-    numClicks+=1;
-    buttonClickCounter.textContent = `${numClicks} Ants`;
-})
+button.addEventListener("click", () => {
+  numClicks += 1;
+  buttonClickCounter.textContent = `${numClicks} Ants`;
+});
