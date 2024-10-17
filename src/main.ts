@@ -4,7 +4,7 @@ import "./style.css";
 let numPapers: number = 0;
 let timeSinceFrame: number = performance.now();
 let passivePaperGrowth: number = 0;
-let clickValue: number = 1;
+const clickValue: number = 1;
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
@@ -34,14 +34,11 @@ const upgradePassivePaper = document.createElement("button");
 upgradePassivePaper.innerHTML = "Delivery Boy (Costs 10 Paper)";
 app.append(upgradePassivePaper);
 upgradePassivePaper.disabled = true;
-upgradePassivePaper.addEventListener("click", ()=>{
-    let increment: number = Math.floor(numPapers/10);
-    updateClick(0-(increment*10))
-    passivePaperGrowth += increment;
-})
-
-
-
+upgradePassivePaper.addEventListener("click", () => {
+  const increment: number = Math.floor(numPapers / 10);
+  updateClick(0 - increment * 10);
+  passivePaperGrowth += increment;
+});
 
 function continuousPaperGain(timestamp: number) {
   const deltaTime = timestamp - timeSinceFrame;
@@ -52,10 +49,10 @@ function continuousPaperGain(timestamp: number) {
   requestAnimationFrame(continuousPaperGain);
 }
 
-function updateClick(change: number){
-    numPapers += change;
-    manualClickCounter.textContent = `${numPapers} Papers`;
-    if (numPapers >= 10){
-        upgradePassivePaper.disabled = false;
-    }
+function updateClick(change: number) {
+  numPapers += change;
+  manualClickCounter.textContent = `${numPapers} Papers`;
+  if (numPapers >= 10) {
+    upgradePassivePaper.disabled = false;
+  }
 }
