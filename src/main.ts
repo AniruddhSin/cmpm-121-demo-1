@@ -27,14 +27,13 @@ button.addEventListener("click", () => {
   buttonClickCounter.textContent = `${numAnts} Ants`;
 });
 
-
 requestAnimationFrame(continuousAntGain);
-function continuousAntGain(timestamp: number){
-    const deltaTime = timestamp - timeSinceFrame;
-    if (deltaTime >= 1000){
-        numAnts += 10;
-        buttonClickCounter.textContent = `${numAnts} Ants`;
-        timeSinceFrame = timestamp
-    }
-    requestAnimationFrame(continuousAntGain)
+function continuousAntGain(timestamp: number) {
+  const deltaTime = timestamp - timeSinceFrame;
+  if (deltaTime >= 1000) {
+    numAnts += 10;
+    buttonClickCounter.textContent = `${numAnts} Ants`;
+    timeSinceFrame = timestamp;
+  }
+  requestAnimationFrame(continuousAntGain);
 }
