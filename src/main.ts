@@ -15,11 +15,17 @@ button.innerHTML = "Ant 🐜";
 app.append(button);
 
 // Track button clicks
-let numClicks: number = 0;
+let numAnts: number = 0;
 const buttonClickCounter = document.createElement("div");
-buttonClickCounter.textContent = `${numClicks} Ants`;
+buttonClickCounter.textContent = `${numAnts} Ants`;
 app.append(buttonClickCounter);
 button.addEventListener("click", () => {
-  numClicks += 1;
-  buttonClickCounter.textContent = `${numClicks} Ants`;
+  numAnts += 1;
+  buttonClickCounter.textContent = `${numAnts} Ants`;
 });
+
+// Add "automatic" clicking
+setInterval(()=>{
+    numAnts+=1;
+    buttonClickCounter.textContent = `${numAnts} Ants`;
+},1000);
