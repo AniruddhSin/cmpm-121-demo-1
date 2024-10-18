@@ -73,7 +73,7 @@ class Upgrade {
     app.append(this.button);
     this.button.addEventListener("click", () => {
       // keep attempting purchases until fail
-      while(this.purchased()){
+      while (this.purchased()) {
         this.upgradeCost *= 1.15;
         this.upgradeCounter += 1;
       }
@@ -87,10 +87,10 @@ class Upgrade {
   }
 
   purchased() {
-    if (this.upgradeCost > numPapers){
+    if (this.upgradeCost > numPapers) {
       return false;
     }
-    updateClick(0-this.upgradeCost);
+    updateClick(0 - this.upgradeCost);
     passivePaperGrowth += this.upgradeValue;
     return true;
   }
@@ -125,7 +125,7 @@ function updateClick(change: number) {
   for (const observer of clickObservers) {
     if (numPapers >= observer.getCost()) {
       observer.enable();
-    }else{
+    } else {
       observer.disable();
     }
   }
