@@ -43,7 +43,12 @@ function continuousPaperGain(timestamp: number) {
 }
 
 // Create class to define Upgrades and track their status
-class Upgrade {
+interface Item {
+  itemName: string,
+  upgradeCost: number,
+  upgradeValue: number
+}
+class Upgrade implements Item{
   counterDisplay: HTMLDivElement;
   upgradeCounter: number;
   upgradeCost: number;
@@ -132,6 +137,6 @@ function updateClick(change: number) {
 }
 
 // Add Upgrades (label, cost, value, button)
-new Upgrade("A", 10, 0.1, document.createElement("button"));
-new Upgrade("B", 100, 2, document.createElement("button"));
-new Upgrade("C", 1000, 50, document.createElement("button"));
+new Upgrade("Delivery Boy", 10, 0.1, document.createElement("button"));
+new Upgrade("Amazon Truck", 100, 2, document.createElement("button"));
+new Upgrade("Printer", 1000, 50, document.createElement("button"));
