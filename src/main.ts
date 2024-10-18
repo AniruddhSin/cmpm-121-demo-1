@@ -44,11 +44,11 @@ function continuousPaperGain(timestamp: number) {
 
 // Create class to define Upgrades and track their status
 interface Item {
-  itemName: string,
-  upgradeCost: number,
-  upgradeValue: number
+  itemName: string;
+  upgradeCost: number;
+  upgradeValue: number;
 }
-class Upgrade implements Item{
+class Upgrade implements Item {
   counterDisplay: HTMLDivElement;
   upgradeCounter: number;
   upgradeCost: number;
