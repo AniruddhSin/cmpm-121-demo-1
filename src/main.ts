@@ -62,32 +62,45 @@ class Upgrade {
     this.upgradeCost = cost;
     this.upgradeValue = value;
 
-    // Create interactable button
-    this.button = buttonObject;
-    this.button.innerHTML = `${label}: Costs ${this.upgradeCost}`;
-    app.append(this.button);
-    this.button.addEventListener("click", () => {
-      const increment: number = Math.floor(numPapers / this.upgradeCost);
-      this.purchased(increment);
-    });
-    this.button.disabled = true;
     // Create and display upgrade counter
     this.counterDisplay = document.createElement("div");
     this.counterDisplay.innerHTML = `${this.upgradeCounter} ${this.itemName}s`;
     status_display.append(this.counterDisplay);
 
+    // Create interactable button
+    this.button = buttonObject;
+    this.button.innerHTML = `${label}: ${this.upgradeCost} Papers`;
+    app.append(this.button);
+    this.button.addEventListener("click", () => {
+      // keep attempting purchases until fail
+      while(this.purchased()){
+        this.upgradeCost *= 1.15;
+        this.upgradeCounter += 1;
+      }
+      // update text after purchases were made
+      this.counterDisplay.innerHTML = `${this.upgradeCounter} ${this.itemName}s`;
+      this.button.innerHTML = `${label}: ${this.upgradeCost.toFixed(1)} Papers`;
+    });
+
+    this.button.disabled = true;
     clickObservers.push(this);
   }
 
-  purchased(numPurchases: number) {
-    updateClick(0 - numPurchases * this.upgradeCost);
-    passivePaperGrowth += numPurchases * this.upgradeValue;
-    this.upgradeCounter += numPurchases;
-    this.counterDisplay.innerHTML = `${this.upgradeCounter} ${this.itemName}s`;
+  purchased() {
+    if (this.upgradeCost > numPapers){
+      return false;
+    }
+    updateClick(0-this.upgradeCost);
+    passivePaperGrowth += this.upgradeValue;
+    return true;
   }
 
   enable() {
     this.button.disabled = false;
+  }
+
+  disable() {
+    this.button.disabled = true;
   }
 
   getCost() {
@@ -112,6 +125,8 @@ function updateClick(change: number) {
   for (const observer of clickObservers) {
     if (numPapers >= observer.getCost()) {
       observer.enable();
+    }else{
+      observer.disable();
     }
   }
 }
