@@ -8,7 +8,8 @@ const clickValue: number = 1;
 const clickObservers: Upgrade[] = [];
 
 const app: HTMLDivElement = document.querySelector("#app")!;
-const status_display: HTMLDivElement = document.querySelector("#status-display")!;
+const status_display: HTMLDivElement =
+  document.querySelector("#status-display")!;
 
 const gameName = "Lord of News";
 document.title = gameName;
@@ -50,7 +51,12 @@ class Upgrade {
   itemName: string;
   button: HTMLButtonElement;
 
-  constructor(label: string, cost: number, value: number, buttonObject: HTMLButtonElement){
+  constructor(
+    label: string,
+    cost: number,
+    value: number,
+    buttonObject: HTMLButtonElement,
+  ) {
     this.itemName = label;
     this.upgradeCounter = 0;
     this.upgradeCost = cost;
@@ -63,28 +69,28 @@ class Upgrade {
     this.button.addEventListener("click", () => {
       const increment: number = Math.floor(numPapers / this.upgradeCost);
       this.purchased(increment);
-    })
+    });
     this.button.disabled = true;
     // Create and display upgrade counter
     this.counterDisplay = document.createElement("div");
-    this.counterDisplay.innerHTML = `${this.upgradeCounter} ${this.itemName}s`
+    this.counterDisplay.innerHTML = `${this.upgradeCounter} ${this.itemName}s`;
     status_display.append(this.counterDisplay);
 
     clickObservers.push(this);
   }
 
-  purchased (numPurchases: number){
-    updateClick(0-numPurchases*this.upgradeCost);
+  purchased(numPurchases: number) {
+    updateClick(0 - numPurchases * this.upgradeCost);
     passivePaperGrowth += numPurchases * this.upgradeValue;
     this.upgradeCounter += numPurchases;
-    this.counterDisplay.innerHTML = `${this.upgradeCounter} ${this.itemName}s`
+    this.counterDisplay.innerHTML = `${this.upgradeCounter} ${this.itemName}s`;
   }
 
-  enable(){
+  enable() {
     this.button.disabled = false;
   }
 
-  getCost(){
+  getCost() {
     return this.upgradeCost;
   }
 }
@@ -103,15 +109,14 @@ upgradePassivePaper.addEventListener("click", () => {
 function updateClick(change: number) {
   numPapers += change;
   paperCounter.textContent = numPapers.toFixed(1) + " Papers";
-  for (const observer of clickObservers){
-    if (numPapers >= observer.getCost()){
+  for (const observer of clickObservers) {
+    if (numPapers >= observer.getCost()) {
       observer.enable();
     }
   }
 }
 
-
 // Add Upgrades (label, cost, value, button)
-let A: Upgrade = new Upgrade("A", 5, 0.1, document.createElement("button"));
-let B: Upgrade = new Upgrade("B", 10, 2, document.createElement("button"));
-let C: Upgrade = new Upgrade("C", 20, 50, document.createElement("button"));
+new Upgrade("A", 10, 0.1, document.createElement("button"));
+new Upgrade("B", 100, 2, document.createElement("button"));
+new Upgrade("C", 1000, 50, document.createElement("button"));
