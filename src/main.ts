@@ -47,6 +47,7 @@ interface Item {
   itemName: string;
   upgradeCost: number;
   upgradeValue: number;
+  description: string;
 }
 class Upgrade implements Item {
   counterDisplay: HTMLDivElement;
@@ -55,17 +56,20 @@ class Upgrade implements Item {
   upgradeValue: number;
   itemName: string;
   button: HTMLButtonElement;
+  description: string;
 
   constructor(
     label: string,
     cost: number,
     value: number,
     buttonObject: HTMLButtonElement,
+    descript: string,
   ) {
     this.itemName = label;
     this.upgradeCounter = 0;
     this.upgradeCost = cost;
     this.upgradeValue = value;
+    this.description = descript;
 
     // Create and display upgrade counter
     this.counterDisplay = document.createElement("div");
@@ -75,6 +79,7 @@ class Upgrade implements Item {
     // Create interactable button
     this.button = buttonObject;
     this.button.innerHTML = `${label}: ${this.upgradeCost} Papers`;
+    this.button.title = descript;
     app.append(this.button);
     this.button.addEventListener("click", () => {
       // keep attempting purchases until fail
@@ -136,7 +141,9 @@ function updateClick(change: number) {
   }
 }
 
-// Add Upgrades (label, cost, value, button)
-new Upgrade("Delivery Boy", 10, 0.1, document.createElement("button"));
-new Upgrade("Amazon Truck", 100, 2, document.createElement("button"));
-new Upgrade("Printer", 1000, 50, document.createElement("button"));
+// Add Upgrades (label, cost, value, button, title)
+new Upgrade("Delivery Boy", 1, 0.1, document.createElement("button"), "He earns less than minimum wage");
+new Upgrade("Amazon Truck", 10, 2, document.createElement("button"), "The driver gets 4 hours of sleep per night");
+new Upgrade("Printer", 100, 15, document.createElement("button"), "Spread your own misinformation");
+new Upgrade("Investor", 250, 50, document.createElement("button"), "They scheme using your misinformation");
+new Upgrade("Company", 1000, 100, document.createElement("button"), "Expand your empire of lies");
