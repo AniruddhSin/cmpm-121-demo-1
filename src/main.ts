@@ -11,6 +11,12 @@ const app: HTMLDivElement = document.querySelector("#app")!;
 const status_display: HTMLDivElement =
   document.querySelector("#status-display")!;
 
+const body: HTMLElement | null = document.querySelector("body");
+if (body){
+  body.style.backgroundImage = "url('https://i.etsystatic.com/7942433/r/il/c53f7b/2794362434/il_1080xN.2794362434_nr2m.jpg')"
+  body.style.filter = "brightness(80%)"
+}
+
 const gameName = "Lord of News";
 document.title = gameName;
 
@@ -33,7 +39,10 @@ function updateClick(change: number) {
 
 // Create the button
 const manualClickButton = document.createElement("button");
-manualClickButton.innerHTML = "📰";
+manualClickButton.style.width = "128px"
+manualClickButton.style.height = "128px"
+manualClickButton.style.fontSize = "32px"
+manualClickButton.innerText = "📰";
 app.append(manualClickButton);
 
 // Track number of units
